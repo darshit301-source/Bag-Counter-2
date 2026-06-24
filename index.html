@@ -1,197 +1,283 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.6">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #000000}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #000000; min-height: 14.0px}
-    span.s1 {font-kerning: none}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bag Counter App</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Bag Counter">
+    
+    <style>
+        :root {
+            --primary: #007AFF;
+            --background: #F2F2F7;
+            --card: #FFFFFF;
+            --text: #000000;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h2 { text-align: center; margin-bottom: 20px; }
+        .card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 14px;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #C7C7CC;
+            background-color: #fff;
+            font-size: 16px; /* Prevents iOS auto-zoom */
+        }
+        select[multiple] {
+            height: 100px;
+        }
+        .help-text {
+            font-size: 11px;
+            color: #8E8E93;
+            margin-top: 2px;
+        }
+        button {
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        button:active { opacity: 0.8; }
+        
+        /* Results Table Styling */
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .results-table th, .results-table td {
+            border-bottom: 1px solid #E5E5EA;
+            padding: 10px;
+            text-align: left;
+        }
+        .results-table th { background-color: #F2F2F7; }
+        .total-row { font-weight: bold; background-color: #E5V5EA; }
+    </style>
 </head>
 <body>
-<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
-<p class="p1"><span class="s1">&lt;html lang="en"&gt;</span></p>
-<p class="p1"><span class="s1">&lt;head&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;title&gt;Bag Counter App&lt;/title&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta name="apple-mobile-web-app-title" content="Bag Counter"&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;style&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>:root {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--primary: #007AFF;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--background: #F2F2F7;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--card: #FFFFFF;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>--text: #000000;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>body {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: var(--background);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: var(--text);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin: 0;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 20px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.container {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>max-width: 600px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin: 0 auto;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>h2 { text-align: center; margin-bottom: 20px; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.card {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background: var(--card);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 12px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 16px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-bottom: 16px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>box-shadow: 0 1px 3px rgba(0,0,0,0.1);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.form-group {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-bottom: 14px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>label {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>display: block;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-weight: 600;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-bottom: 5px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-size: 14px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>select {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>width: 100%;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 10px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 8px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border: 1px solid #C7C7CC;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: #fff;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-size: 16px; /* Prevents iOS auto-zoom */</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>select[multiple] {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>height: 100px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.help-text {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-size: 11px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #8E8E93;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-top: 2px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>button {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>width: 100%;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: var(--primary);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: white;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border: none;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 14px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 8px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-size: 16px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-weight: 600;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>cursor: pointer;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>button:active { opacity: 0.8; }</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>/* Results Table Styling */</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.results-table {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>width: 100%;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-collapse: collapse;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-top: 10px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.results-table th, .results-table td {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-bottom: 1px solid #E5E5EA;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 10px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>text-align: left;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.results-table th { background-color: #F2F2F7; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.total-row { font-weight: bold; background-color: #E5V5EA; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
-<p class="p1"><span class="s1">&lt;body&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;div class="container"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Bag Inventory Counter&lt;/h2&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="card"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="form-group"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;label for="filterYarn"&gt;Yarn (Hold Cmd/Ctrl or drag to multi-select)&lt;/label&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;select id="filterYarn" multiple&gt;&lt;/select&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="form-group"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;label for="filterColour"&gt;Colour (Hold Cmd/Ctrl to multi-select)&lt;/label&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;select id="filterColour" multiple&gt;&lt;/select&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;hr style="border: 0; border-top: 1px solid #E5E5EA; margin: 15px 0;"&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="form-group"&gt;&lt;label for="filterDanier"&gt;Danier&lt;/label&gt;&lt;select id="filterDanier"&gt;&lt;option value=""&gt;All&lt;/option&gt;&lt;/select&gt;&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="form-group"&gt;&lt;label for="filterPressure"&gt;Pressure&lt;/label&gt;&lt;select id="filterPressure"&gt;&lt;option value=""&gt;All&lt;/option&gt;&lt;/select&gt;&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="form-group"&gt;&lt;label for="filterBafni"&gt;Bafni&lt;/label&gt;&lt;select id="filterBafni"&gt;&lt;option value=""&gt;All&lt;/option&gt;&lt;/select&gt;&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="form-group"&gt;&lt;label for="filterPackaging"&gt;Packaging&lt;/label&gt;&lt;select id="filterPackaging"&gt;&lt;option value=""&gt;All&lt;/option&gt;&lt;/select&gt;&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="form-group"&gt;&lt;label for="filterCovering"&gt;Covering&lt;/label&gt;&lt;select id="filterCovering"&gt;&lt;option value=""&gt;All&lt;/option&gt;&lt;/select&gt;&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="form-group"&gt;&lt;label for="filterDoubler"&gt;Doubler&lt;/label&gt;&lt;select id="filterDoubler"&gt;&lt;option value=""&gt;All&lt;/option&gt;&lt;/select&gt;&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;button onclick="calculateBags()"&gt;Calculate Total&lt;/button&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="card" id="resultsCard" style="display:none;"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;h3&gt;Results&lt;/h3&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div id="resultsContent"&gt;&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;script&gt;</span></p>
-<p class="p1"><span class="s1">// --- CONFIGURATION ---</span></p>
-<p class="p1"><span class="s1">const API_KEY = 'AIzaSyDPbdh058jZ-1xYfSaQ0vseYWhDOK52ULE';<span class="Apple-converted-space"> </span></span></p>
-<p class="p1"><span class="s1">const SPREADSHEET_ID = 'https://docs.google.com/spreadsheets/d/11Xe4KR9XbJ2lWnYhQvsswOQlvgkX2dZZVWVxf7Donoo/edit?gid=0#gid=0';</span></p>
-<p class="p1"><span class="s1">const SHEET_NAME = 'Sheet1'; // Change to match your actual sheet tab name</span></p>
-<p class="p1"><span class="s1">const RANGE = `${SHEET_NAME}!A:K`; // Adjust range depending on your column span</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">// --- COLUMN MAPPING ---</span></p>
-<p class="p1"><span class="s1">// Map your explicit column names to their exact array index position in your Google Sheet (0 = Column A, 1 = Column B, etc.)</span></p>
-<p class="p1"><span class="s1">const MAPPING = {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>yarn: 2,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>colour: 3,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>danier: 4,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>pressure: 5,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>bafni: 6,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>packaging: 7,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>covering: 8,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>doubler: 9,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>bagsS: 10, <span class="Apple-converted-space">      </span>// Column Index for S Bags</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>bagsZ: 11, <span class="Apple-converted-space">      </span>// Column Index for Z Bags</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>bagsTotal: 12 <span class="Apple-converted-space">  </span>// Column Index for Total Bags</span></p>
-<p class="p1"><span class="s1">};</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">let rawSheetData = [];</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">// Fetch data on load</span></p>
-<p class="p1"><span class="s1">async function fetchSheetData() {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}?key=${API_KEY}`;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>try {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const response = await fetch(url);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const data = await response.json();</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>if (data.values &amp;&amp; data.values.length &gt; 1) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Slice(1) removes the header row from calculations</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>rawSheetData = data.values.slice(1);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>populateDropdownOptions(rawSheetData);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>} else {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>alert("No data found or sheet is empty.");</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>} catch (error) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>console.error("Error fetching data:", error);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>alert("Failed to fetch data from Google Sheets.");</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">// Dynamically populate dropdown filters based on the unique data available in your sheet</span></p>
-<p class="p1"><span class="s1">function populateDropdownOptions(data) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const uniqueOptions = { yarn: new Set(), colour: new Set(), danier: new Set(), pressure: new Set(), bafni: new Set(), packaging: new Set(), covering: new Set(), doubler: new Set() };</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>data.forEach(row =&gt; {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>Object.keys(uniqueOptions).forEach(key =&gt; {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const val = row[MAPPING[key]];</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (val) uniqueOptions[key].add(val.trim());</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>});</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>});</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// Populate UI Dropdowns</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>Object.keys(uniqueOptions).forEach(key =&gt; {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const</span></p>
+
+<div class="container">
+    <h2>Bag Inventory Counter</h2>
+    
+    <div class="card">
+        <div class="form-group">
+            <label for="filterYarn">Yarn (Hold Cmd/Ctrl or drag to multi-select)</label>
+            <select id="filterYarn" multiple></select>
+        </div>
+        <div class="form-group">
+            <label for="filterColour">Colour (Hold Cmd/Ctrl to multi-select)</label>
+            <select id="filterColour" multiple></select>
+        </div>
+        
+        <hr style="border: 0; border-top: 1px solid #E5E5EA; margin: 15px 0;">
+        
+        <div class="form-group"><label for="filterDanier">Danier</label><select id="filterDanier"><option value="">All</option></select></div>
+        <div class="form-group"><label for="filterPressure">Pressure</label><select id="filterPressure"><option value="">All</option></select></div>
+        <div class="form-group"><label for="filterBafni">Bafni</label><select id="filterBafni"><option value="">All</option></select></div>
+        <div class="form-group"><label for="filterPackaging">Packaging</label><select id="filterPackaging"><option value="">All</option></select></div>
+        <div class="form-group"><label for="filterCovering">Covering</label><select id="filterCovering"><option value="">All</option></select></div>
+        <div class="form-group"><label for="filterDoubler">Doubler</label><select id="filterDoubler"><option value="">All</option></select></div>
+        
+        <button onclick="calculateBags()">Calculate Total</button>
+    </div>
+
+    <div class="card" id="resultsCard" style="display:none;">
+        <h3>Results</h3>
+        <div id="resultsContent"></div>
+    </div>
+</div>
+
+<script>
+// --- CONFIGURATION ---
+const API_KEY = 'AIzaSyDPbdh058jZ-1xYfSaQ0vseYWhDOK52ULE'; 
+const SPREADSHEET_ID = 'https://docs.google.com/spreadsheets/d/11Xe4KR9XbJ2lWnYhQvsswOQlvgkX2dZZVWVxf7Donoo/edit?usp=sharing';
+const SHEET_NAME = 'Sheet1'; // Change to match your actual sheet tab name
+const RANGE = `${SHEET_NAME}!A:K`; // Adjust range depending on your column span
+
+// --- COLUMN MAPPING ---
+// Map your explicit column names to their exact array index position in your Google Sheet (0 = Column A, 1 = Column B, etc.)
+const MAPPING = {
+    yarn: 0,
+    colour: 1,
+    danier: 2,
+    pressure: 3,
+    bafni: 4,
+    packaging: 5,
+    covering: 6,
+    doubler: 7,
+    bagsS: 8,       // Column Index for S Bags
+    bagsZ: 9,       // Column Index for Z Bags
+    bagsTotal: 10   // Column Index for Total Bags
+};
+
+let rawSheetData = [];
+
+// Fetch data on load
+async function fetchSheetData() {
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}?key=${API_KEY}`;
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        if (data.values && data.values.length > 1) {
+            // Slice(1) removes the header row from calculations
+            rawSheetData = data.values.slice(1);
+            populateDropdownOptions(rawSheetData);
+        } else {
+            alert("No data found or sheet is empty.");
+        }
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        alert("Failed to fetch data from Google Sheets.");
+    }
+}
+
+// Dynamically populate dropdown filters based on the unique data available in your sheet
+function populateDropdownOptions(data) {
+    const uniqueOptions = { yarn: new Set(), colour: new Set(), danier: new Set(), pressure: new Set(), bafni: new Set(), packaging: new Set(), covering: new Set(), doubler: new Set() };
+
+    data.forEach(row => {
+        Object.keys(uniqueOptions).forEach(key => {
+            const val = row[MAPPING[key]];
+            if (val) uniqueOptions[key].add(val.trim());
+        });
+    });
+
+    // Populate UI Dropdowns
+    Object.keys(uniqueOptions).forEach(key => {
+        const selectEl = document.getElementById('filter' + key.charAt(0).toUpperCase() + key.slice(1));
+        // Sort choices alphabetically or numerically
+        Array.from(uniqueOptions[key]).sort().forEach(optionVal => {
+            const opt = document.createElement('option');
+            opt.value = optionVal;
+            opt.textContent = optionVal;
+            selectEl.appendChild(opt);
+        });
+    });
+}
+
+function getSelectedOptions(selectElement) {
+    return Array.from(selectElement.selectedOptions).map(opt => opt.value);
+}
+
+// Filter and Calculate matching outputs
+function calculateBags() {
+    // Get Multi-select values (arrays)
+    const selectedYarns = getSelectedOptions(document.getElementById('filterYarn'));
+    const selectedColours = getSelectedOptions(document.getElementById('filterColour'));
+
+    // Get Single-select values (strings)
+    const filterVals = {
+        danier: document.getElementById('filterDanier').value,
+        pressure: document.getElementById('filterPressure').value,
+        bafni: document.getElementById('filterBafni').value,
+        packaging: document.getElementById('filterPackaging').value,
+        covering: document.getElementById('filterCovering').value,
+        doubler: document.getElementById('filterDoubler').value
+    };
+
+    let totalS = 0, totalZ = 0, totalAll = 0;
+    let breakdownHtml = `
+        <table class="results-table">
+            <thead>
+                <tr>
+                    <th>Yarn</th>
+                    <th>Colour</th>
+                    <th>S</th>
+                    <th>Z</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+
+    // Filter rows based on all criteria
+    rawSheetData.forEach(row => {
+        const rowYarn = (row[MAPPING.yarn] || '').trim();
+        const rowColour = (row[MAPPING.colour] || '').trim();
+
+        // Check Multi-select criteria (If nothing selected, treat as "All")
+        if (selectedYarns.length > 0 && !selectedYarns.includes(rowYarn)) return;
+        if (selectedColours.length > 0 && !selectedColours.includes(rowColour)) return;
+
+        // Check Single-select criteria
+        for (let key in filterVals) {
+            if (filterVals[key] !== "" && (row[MAPPING[key]] || '').trim() !== filterVals[key]) {
+                return; // Skips row if criteria doesn't match
+            }
+        }
+
+        // Parse bag numbers safely (default to 0 if blank or non-numeric)
+        const sCount = parseInt(row[MAPPING.bagsS]) || 0;
+        const zCount = parseInt(row[MAPPING.bagsZ]) || 0;
+        const tCount = parseInt(row[MAPPING.bagsTotal]) || 0;
+
+        // Add to aggregate totals
+        totalS += sCount;
+        totalZ += zCount;
+        totalAll += tCount;
+
+        // Append individual matching rows to output
+        breakdownHtml += `
+            <tr>
+                <td>${rowYarn}</td>
+                <td>${rowColour}</td>
+                <td>${sCount}</td>
+                <td>${zCount}</td>
+                <td>${tCount}</td>
+            </tr>
+        `;
+    });
+
+    breakdownHtml += `
+            <tr class="total-row">
+                <td colspan="2">TOTAL</td>
+                <td>${totalS}</td>
+                <td>${totalZ}</td>
+                <td>${totalAll}</td>
+            </tr>
+        </tbody>
+    </table>`;
+
+    // Display Results
+    document.getElementById('resultsContent').innerHTML = breakdownHtml;
+    document.getElementById('resultsCard').style.display = 'block';
+}
+
+// Execute fetch when script loads
+window.onload = fetchSheetData;
+</script>
 </body>
 </html>
